@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ToDo-Amazing</string>
+    <string name="username">UserName</string>
+    <string name="password">PassWord</string>
+    <string name="efficiency_life">High Efficiency, Slow Life</string>
+    <string name="login">login</string>
 </resources>
