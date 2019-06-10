@@ -1,4 +1,4 @@
-package com.example.common;
+package com.example.todo.base;
 
 import org.junit.Test;
 
