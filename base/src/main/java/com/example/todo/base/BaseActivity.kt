@@ -20,7 +20,6 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState, persistentState)
 
         setScreenPosition(true)
-
         setStatusBar()
     }
 

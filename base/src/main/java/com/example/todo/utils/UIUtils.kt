@@ -3,6 +3,7 @@ package com.example.todo.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 
+
 /**
  * @author tengfei
  * date 2019/7/10 12:01 AM
@@ -29,3 +30,7 @@ fun getColor(context: Context, colorId: Int): Int {
 fun getDrawable(context: Context, resId: Int): Drawable {
     return context.resources.getDrawable(resId)
 }
+
+
+
+
