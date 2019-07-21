@@ -12,7 +12,7 @@
         android:theme="@style/ToDO"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".LauncherActivity">
+        <activity android:name=".LauncherActivity" android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,7 @@
     </style>
 
     <style name="AppTheme.Launcher" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@mipmap/todo_logo</item>
+        <item name="android:windowBackground">@drawable/layer_launch</item>
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
     </style>

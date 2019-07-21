@@ -1,7 +1,9 @@
 package com.example.todo
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import com.example.todo.base.BaseActivity
 
 /**
@@ -10,10 +12,18 @@ import com.example.todo.base.BaseActivity
  * email tengfeigo@outlook.com
  * description
  */
-class LauncherActivity : BaseActivity() {
+class LauncherActivity : AppCompatActivity() {
+
+    private val handler: Handler = Handler()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        handler.postDelayed({
+            val intent = Intent(this@LauncherActivity,MainActivity::class.java)
+            startActivity(intent)
+        }, 3000)
 
     }
 
