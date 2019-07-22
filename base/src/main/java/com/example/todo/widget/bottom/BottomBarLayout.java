@@ -85,8 +85,9 @@ public class BottomBarLayout extends LinearLayout implements ViewPager.OnPageCha
             }
         }
 
-        if (mCurrentItem < mItemViews.size())
+        if (mCurrentItem < mItemViews.size()) {
             mItemViews.get(mCurrentItem).refreshTab(true);
+        }
 
         if (mViewPager != null) {
             mViewPager.setOnPageChangeListener(this);

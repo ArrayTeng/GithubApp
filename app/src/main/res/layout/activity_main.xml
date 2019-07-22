@@ -27,14 +27,14 @@
         app:layout_constraintBottom_toTopOf="@id/main_bottom"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<com.example.todo.widget.titlebar.CommonTitleBar-->
-        <!--android:id="@+id/titlebar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--titlebar:centerText="标题栏"-->
-        <!--titlebar:centerType="textView"-->
-        <!--titlebar:leftDrawable="@drawable/comm_titlebar_back_normal"-->
-        <!--titlebar:leftDrawablePadding="0dp"-->
-        <!--titlebar:leftText="返回"-->
-        <!--titlebar:leftType="textView"/>-->
+    <com.example.todo.widget.titlebar.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:centerText="标题栏"
+        titlebar:centerType="textView"
+        titlebar:leftDrawable="@drawable/comm_titlebar_back_normal"
+        titlebar:leftDrawablePadding="0dp"
+        titlebar:leftText="返回"
+        titlebar:leftType="textView"/>
 </android.support.constraint.ConstraintLayout>

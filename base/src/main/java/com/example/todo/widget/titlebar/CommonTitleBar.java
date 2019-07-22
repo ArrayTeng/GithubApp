@@ -163,21 +163,26 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
     private OnTitleBarListener listener;
     private OnTitleBarDoubleClickListener doubleClickListener;
 
-    private static final int TYPE_LEFT_NONE = 0;
-    private static final int TYPE_LEFT_TEXTVIEW = 1;
-    private static final int TYPE_LEFT_IMAGEBUTTON = 2;
-    private static final int TYPE_LEFT_CUSTOM_VIEW = 3;
-    private static final int TYPE_RIGHT_NONE = 0;
-    private static final int TYPE_RIGHT_TEXTVIEW = 1;
-    private static final int TYPE_RIGHT_IMAGEBUTTON = 2;
-    private static final int TYPE_RIGHT_CUSTOM_VIEW = 3;
-    private static final int TYPE_CENTER_NONE = 0;
-    private static final int TYPE_CENTER_TEXTVIEW = 1;
-    private static final int TYPE_CENTER_SEARCHVIEW = 2;
-    private static final int TYPE_CENTER_CUSTOM_VIEW = 3;
+    public static final int TYPE_LEFT_NONE = 0;
+    public static final int TYPE_LEFT_TEXTVIEW = 1;
+    public static final int TYPE_LEFT_IMAGEBUTTON = 2;
+    public static final int TYPE_LEFT_CUSTOM_VIEW = 3;
+    public static final int TYPE_RIGHT_NONE = 0;
+    public static final int TYPE_RIGHT_TEXTVIEW = 1;
+    public static final int TYPE_RIGHT_IMAGEBUTTON = 2;
+    public static final int TYPE_RIGHT_CUSTOM_VIEW = 3;
+    public static final int TYPE_CENTER_NONE = 0;
+    public static final int TYPE_CENTER_TEXTVIEW = 1;
+    public static final int TYPE_CENTER_SEARCHVIEW = 2;
+    public static final int TYPE_CENTER_CUSTOM_VIEW = 3;
 
-    private static final int TYPE_CENTER_SEARCH_RIGHT_VOICE = 0;
-    private static final int TYPE_CENTER_SEARCH_RIGHT_DELETE = 1;
+    public static final int TYPE_CENTER_SEARCH_RIGHT_VOICE = 0;
+    public static final int TYPE_CENTER_SEARCH_RIGHT_DELETE = 1;
+
+
+    public CommonTitleBar(Context context) {
+        this(context,null);
+    }
 
     public CommonTitleBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -599,20 +604,6 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             centerCustomParams.setMarginStart(PADDING_12);
             centerCustomParams.setMarginEnd(PADDING_12);
             centerCustomParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-//            if (leftType == TYPE_LEFT_TEXTVIEW) {
-//                centerCustomParams.addRule(RelativeLayout.END_OF, tvLeft.getId());
-//            } else if (leftType == TYPE_LEFT_IMAGEBUTTON) {
-//                centerCustomParams.addRule(RelativeLayout.END_OF, btnLeft.getId());
-//            } else if (leftType == TYPE_LEFT_CUSTOM_VIEW) {
-//                centerCustomParams.addRule(RelativeLayout.END_OF, viewCustomLeft.getId());
-//            }
-//            if (rightType == TYPE_RIGHT_TEXTVIEW) {
-//                centerCustomParams.addRule(RelativeLayout.START_OF, tvRight.getId());
-//            } else if (rightType == TYPE_RIGHT_IMAGEBUTTON) {
-//                centerCustomParams.addRule(RelativeLayout.START_OF, btnRight.getId());
-//            } else if (rightType == TYPE_RIGHT_CUSTOM_VIEW) {
-//                centerCustomParams.addRule(RelativeLayout.START_OF, viewCustomRight.getId());
-//            }
             rlMain.addView(centerCustomView, centerCustomParams);
         }
     }
@@ -625,7 +616,7 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
 
     private void setUpImmersionTitleBar() {
         Window window = getWindow();
-        if (window == null){
+        if (window == null) {
             return;
         }
         // 设置状态栏背景透明
@@ -703,8 +694,7 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
         }
     };
 
-    // 双击事件中，上次被点击时间
-    private long lastClickMillis = 0;
+    private long lastClickMillis = 0;     // 双击事件中，上次被点击时间
 
     @Override
     public void onClick(View v) {
@@ -787,23 +777,6 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
         }
     }
 
-    /**
-     * 切换状态栏模式
-     */
-    public void toggleStatusBarMode() {
-        Window window = getWindow();
-        if (window == null) {
-            return;
-        }
-        StatusBarUtil.transparentStatusBar(window);
-        if (statusBarMode == 0) {
-            statusBarMode = 1;
-            StatusBarUtil.setLightMode(window);
-        } else {
-            statusBarMode = 0;
-            StatusBarUtil.setDarkMode(window);
-        }
-    }
 
     /**
      * 获取标题栏底部横线
@@ -1015,6 +988,16 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
         return "";
     }
 
+    public void setLeftType(int leftType,Context context){
+        this.leftType = leftType;
+        initGlobalViews(context);
+        initMainViews(context);
+    }
+
+    public void setLeftText(String leftText){
+        tvLeft.setText(leftText);
+    }
+
     /**
      * 设置点击事件监听
      *
@@ -1032,7 +1015,6 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
     /**
      * 设置双击监听
      */
-
 
     public static final int ACTION_LEFT_TEXT = 1;        // 左边TextView被点击
     public static final int ACTION_LEFT_BUTTON = 2;      // 左边ImageBtn被点击

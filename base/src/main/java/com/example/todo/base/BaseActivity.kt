@@ -2,10 +2,11 @@ package com.example.todo.base
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import com.example.todo.utils.StatusBarUtil
 import android.content.Intent
+import android.widget.RelativeLayout
+import com.example.todo.widget.titlebar.CommonTitleBar
 
 
 /**
@@ -16,12 +17,56 @@ import android.content.Intent
  */
 open class BaseActivity : AppCompatActivity() {
 
+    private lateinit var mBaseLayout: RelativeLayout
+    private lateinit var mTitleBar:CommonTitleBar
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setScreenPosition(true)
         setStatusBar()
+        initTopView()
+        initContent()
+        initData()
     }
+
+    private fun initData() {
+    }
+
+    private fun initContent() {
+        setContentView(mBaseLayout)
+    }
+
+    private fun initTopView() {
+        //默认情况下使用自定义的跟布局
+        if (isUseCustomContent()){
+            mBaseLayout = RelativeLayout(this)
+            if (showTitleBar()){
+               initTitleBar()
+                mBaseLayout.addView(mTitleBar,0)
+            }else{
+
+            }
+        }
+    }
+
+    private fun initTitleBar(){
+        //初始化TitleBar
+//        mTitleBar = CommonTitleBar(this)
+//        mTitleBar.setLeftType(CommonTitleBar.TYPE_LEFT_TEXTVIEW,this)
+//        mTitleBar.leftTextView.text = "fasfds"
+    }
+
+    /**
+     * 是否显示标题栏目
+     */
+    open fun showTitleBar() = true
+
+    /**
+     * 跟布局是否使用自定义布局
+     */
+    open fun isUseCustomContent() = true
 
     /**
      * 设置屏幕旋转方向

@@ -1,10 +1,12 @@
 package com.example.todo
 
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
-import com.example.todo.base.BaseActivity
+import android.view.KeyEvent
+import kotlinx.android.synthetic.main.activity_launcher.*
 
 /**
  * @author tengfei
@@ -19,13 +21,35 @@ class LauncherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_launcher)
 
         handler.postDelayed({
-            val intent = Intent(this@LauncherActivity,MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            goLoginRegister()
         }, 3000)
 
+    }
+
+    private fun goLoginRegister() {
+        val location = IntArray(2)
+        launcherImage.getLocationOnScreen(location)
+        val intent = Intent(this@LauncherActivity, LoginRegisterActivity::class.java)
+        intent.putExtra("X", location[0])
+        intent.putExtra("Y", location[1])
+        startActivity(intent)
+        overridePendingTransition(0, 0)
+        finish()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacks(null)
+        super.onDestroy()
     }
 
 

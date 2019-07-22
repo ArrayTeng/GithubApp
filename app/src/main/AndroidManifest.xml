@@ -9,10 +9,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/todo_logo"
         android:supportsRtl="true"
-        android:theme="@style/ToDO"
+        android:theme="@style/ToDo"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".LauncherActivity" android:theme="@style/AppTheme.Launcher">
+        <activity
+            android:name=".LauncherActivity"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,9 +22,12 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".LoginRegisterActivity"
+            android:theme="@style/Translucent" />
+
         <activity android:name=".MainActivity" />
-
-
     </application>
 
 </manifest>

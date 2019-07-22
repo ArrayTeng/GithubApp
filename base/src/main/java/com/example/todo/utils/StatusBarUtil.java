@@ -37,6 +37,41 @@ public class StatusBarUtil {
     private static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.statusbarutil_translucent_view;
     private static final int TAG_KEY_HAVE_SET_OFFSET = -123;
 
+    private static Method mSetStatusBarColorIcon;
+    private static Method mSetStatusBarDarkIcon;
+    private static Field mStatusBarColorFiled;
+    private static int SYSTEM_UI_FLAG_LIGHT_STATUS_BAR = 0;
+
+
+    static {
+        try {
+            mSetStatusBarColorIcon = Activity.class.getMethod("setStatusBarDarkIcon", int.class);
+        } catch (NoSuchMethodException e) {
+        }
+        try {
+            mSetStatusBarDarkIcon = Activity.class.getMethod("setStatusBarDarkIcon", boolean.class);
+        } catch (NoSuchMethodException e) {
+        }
+        try {
+            mStatusBarColorFiled = WindowManager.LayoutParams.class.getField("statusBarColor");
+        } catch (NoSuchFieldException e) {
+        }
+        try {
+            Field field = View.class.getField("SYSTEM_UI_FLAG_LIGHT_STATUS_BAR");
+            SYSTEM_UI_FLAG_LIGHT_STATUS_BAR = field.getInt(null);
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        }
+    }
+
+
+    public static boolean supportTransparentStatusBar() {
+        return OSUtils.isMiui()
+                || OSUtils.isFlyme()
+                || (OSUtils.isOppo() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
     /**
      * 设置状态栏颜色
      *
@@ -520,30 +555,14 @@ public class StatusBarUtil {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public static void setLightMode(Activity activity) {
-        setMIUIStatusBarDarkIcon(activity, true);
-        setMeizuStatusBarDarkIcon(activity, true);
+    public static void setLightMode(Window window) {
+        setMIUIStatusBarDarkIcon(window, true);
+        setMeizuStatusBarDarkIcon(window, true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 
-    /**
-     * 设置状态栏图片黑色主题
-     *
-     * @param window
-     */
-    public static void setDarkMode(Window window) {
-        if (OSUtils.isMiui()) {
-            setMIUIStatusBarDarkMode(window, true);
-        } else if (OSUtils.isFlyme()) {
-            setFlymeStatusBarDarkMode(window, true);
-        } else if (OSUtils.isOppo()) {
-            setOppoStatusBarDarkMode(window, true);
-        } else {
-            setStatusBarDarkMode(window, true);
-        }
-    }
 
     private static void setMIUIStatusBarDarkMode(Window window, boolean darkMode) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -560,9 +579,6 @@ public class StatusBarUtil {
         setStatusBarDarkMode(window, darkMode);
     }
 
-    private static void setFlymeStatusBarDarkMode(Window window, boolean darkMode) {
-        FlymeStatusBarUtils.setStatusBarDarkIcon(window, darkMode);
-    }
 
     private static final int SYSTEM_UI_FLAG_OP_STATUS_BAR_TINT = 0x00000010;
 
@@ -598,14 +614,14 @@ public class StatusBarUtil {
     /**
      * 修改 MIUI V6  以上状态栏颜色
      */
-    private static void setMIUIStatusBarDarkIcon(@NonNull Activity activity, boolean darkIcon) {
-        Class<? extends Window> clazz = activity.getWindow().getClass();
+    private static void setMIUIStatusBarDarkIcon(@NonNull Window window, boolean darkIcon) {
+        Class<? extends Window> clazz = window.getClass();
         try {
             Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
             Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
             int darkModeFlag = field.getInt(layoutParams);
             Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-            extraFlagField.invoke(activity.getWindow(), darkIcon ? darkModeFlag : 0, darkModeFlag);
+            extraFlagField.invoke(window, darkIcon ? darkModeFlag : 0, darkModeFlag);
         } catch (Exception e) {
             //e.printStackTrace();
         }
@@ -614,9 +630,9 @@ public class StatusBarUtil {
     /**
      * 修改魅族状态栏字体颜色 Flyme 4.0
      */
-    private static void setMeizuStatusBarDarkIcon(@NonNull Activity activity, boolean darkIcon) {
+    private static void setMeizuStatusBarDarkIcon(@NonNull Window window, boolean darkIcon) {
         try {
-            WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+            WindowManager.LayoutParams lp = window.getAttributes();
             Field darkFlag = WindowManager.LayoutParams.class.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
             Field meizuFlags = WindowManager.LayoutParams.class.getDeclaredField("meizuFlags");
             darkFlag.setAccessible(true);
@@ -629,7 +645,7 @@ public class StatusBarUtil {
                 value &= ~bit;
             }
             meizuFlags.setInt(lp, value);
-            activity.getWindow().setAttributes(lp);
+            window.setAttributes(lp);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -763,7 +779,7 @@ public class StatusBarUtil {
      * @param context context
      * @return 状态栏高度
      */
-    private static int getStatusBarHeight(Context context) {
+    public static int getStatusBarHeight(Context context) {
         // 获得状态栏高度
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);
@@ -840,5 +856,106 @@ public class StatusBarUtil {
         } else {
             return UUID.randomUUID().hashCode();
         }
+    }
+
+    /**
+     * 设置状态栏图片黑色主题
+     *
+     * @param window
+     */
+    public static void setDarkMode(Window window) {
+        if (OSUtils.isMiui()) {
+            setMIUIStatusBarDarkMode(window, true);
+        } else if (OSUtils.isFlyme()) {
+            setStatusBarDarkIcon(window, true);
+        } else if (OSUtils.isOppo()) {
+            setOppoStatusBarDarkMode(window, true);
+        } else {
+            setStatusBarDarkMode(window, true);
+        }
+    }
+
+
+    /**
+     * 设置状态栏字体图标颜色(只限全屏非activity情况)
+     *
+     * @param window 当前窗口
+     * @param dark   是否深色 true为深色 false 为白色
+     */
+    public static void setStatusBarDarkIcon(Window window, boolean dark) {
+        if (Build.VERSION.SDK_INT < 23) {
+            changeMeizuFlag(window.getAttributes(), "MEIZU_FLAG_DARK_STATUS_BAR_ICON", dark);
+        } else {
+            View decorView = window.getDecorView();
+            if (decorView != null) {
+                setStatusBarDarkIcon(decorView, dark);
+                setStatusBarColor(window, 0);
+            }
+        }
+    }
+
+    /**
+     * 设置状态栏颜色
+     *
+     * @param window
+     * @param color
+     */
+    private static void setStatusBarColor(Window window, int color) {
+        WindowManager.LayoutParams winParams = window.getAttributes();
+        if (mStatusBarColorFiled != null) {
+            try {
+                int oldColor = mStatusBarColorFiled.getInt(winParams);
+                if (oldColor != color) {
+                    mStatusBarColorFiled.set(winParams, color);
+                    window.setAttributes(winParams);
+                }
+            } catch (IllegalAccessException e) {
+            }
+        }
+    }
+
+    /**
+     * 设置状态栏颜色
+     *
+     * @param view
+     * @param dark
+     */
+    private static void setStatusBarDarkIcon(View view, boolean dark) {
+        int oldVis = view.getSystemUiVisibility();
+        int newVis = oldVis;
+        if (dark) {
+            newVis |= SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        } else {
+            newVis &= ~SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        }
+        if (newVis != oldVis) {
+            view.setSystemUiVisibility(newVis);
+        }
+    }
+
+    private static boolean changeMeizuFlag(WindowManager.LayoutParams winParams, String flagName, boolean on) {
+        try {
+            Field f = winParams.getClass().getDeclaredField(flagName);
+            f.setAccessible(true);
+            int bits = f.getInt(winParams);
+            Field f2 = winParams.getClass().getDeclaredField("meizuFlags");
+            f2.setAccessible(true);
+            int meizuFlags = f2.getInt(winParams);
+            int oldFlags = meizuFlags;
+            if (on) {
+                meizuFlags |= bits;
+            } else {
+                meizuFlags &= ~bits;
+            }
+            if (oldFlags != meizuFlags) {
+                f2.setInt(winParams, meizuFlags);
+                return true;
+            }
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException e) {
+        } catch (Throwable e) {
+        }
+        return false;
     }
 }
