@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+
+    <com.example.todo.widget.bottom.BottomBarLayout
+        android:id="@+id/main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:background="@color/color06"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+    </com.example.todo.widget.bottom.BottomBarLayout>
+
+    <FrameLayout
+        android:id="@+id/main_frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0"
+        app:layout_constraintBottom_toTopOf="@id/main_bottom"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--<com.example.todo.widget.titlebar.CommonTitleBar-->
+        <!--android:id="@+id/titlebar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--titlebar:centerText="标题栏"-->
+        <!--titlebar:centerType="textView"-->
+        <!--titlebar:leftDrawable="@drawable/comm_titlebar_back_normal"-->
+        <!--titlebar:leftDrawablePadding="0dp"-->
+        <!--titlebar:leftText="返回"-->
+        <!--titlebar:leftType="textView"/>-->
 </android.support.constraint.ConstraintLayout>
