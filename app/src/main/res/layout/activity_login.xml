@@ -6,7 +6,7 @@
     android:background="@android:color/white">
 
     <ImageView
-        android:id="@+id/imageLogin"
+        android:id="@+id/image_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/todo_logo"
