@@ -20,7 +20,7 @@ class LoginRegisterActivity : AppCompatActivity() {
         image_login.post{
             initLocation()
         }
-        initAnim()
+        //initAnim()
 
 
     }
