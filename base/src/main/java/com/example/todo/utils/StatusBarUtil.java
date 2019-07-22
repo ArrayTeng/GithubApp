@@ -37,15 +37,6 @@ public class StatusBarUtil {
     private static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.statusbarutil_translucent_view;
     private static final int TAG_KEY_HAVE_SET_OFFSET = -123;
 
-
-    public static boolean supportTransparentStatusBar() {
-        return OSUtils.isMiui()
-                || OSUtils.isFlyme()
-                || (OSUtils.isOppo() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-    }
-
-
     /**
      * 设置状态栏颜色
      *
@@ -528,21 +519,12 @@ public class StatusBarUtil {
         }
     }
 
-
-    /**
-     * 设置状态栏图标白色主题
-     *
-     * @param window
-     */
-    public static void setLightMode(Window window) {
-        if (OSUtils.isMiui()) {
-            setMIUIStatusBarDarkMode(window, false);
-        } else if (OSUtils.isFlyme()) {
-            setFlymeStatusBarDarkMode(window, false);
-        } else if (OSUtils.isOppo()) {
-            setOppoStatusBarDarkMode(window, false);
-        } else {
-            setStatusBarDarkMode(window, false);
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void setLightMode(Activity activity) {
+        setMIUIStatusBarDarkIcon(activity, true);
+        setMeizuStatusBarDarkIcon(activity, true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 
@@ -563,8 +545,26 @@ public class StatusBarUtil {
         }
     }
 
-    private static final int SYSTEM_UI_FLAG_OP_STATUS_BAR_TINT = 0x00000010;
+    private static void setMIUIStatusBarDarkMode(Window window, boolean darkMode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            Class<? extends Window> clazz = window.getClass();
+            try {
+                Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+                Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+                int darkModeFlag = field.getInt(layoutParams);
+                Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+                extraFlagField.invoke(window, darkMode ? darkModeFlag : 0, darkModeFlag);
+            } catch (Exception e) {
+            }
+        }
+        setStatusBarDarkMode(window, darkMode);
+    }
 
+    private static void setFlymeStatusBarDarkMode(Window window, boolean darkMode) {
+        FlymeStatusBarUtils.setStatusBarDarkIcon(window, darkMode);
+    }
+
+    private static final int SYSTEM_UI_FLAG_OP_STATUS_BAR_TINT = 0x00000010;
 
     private static void setOppoStatusBarDarkMode(Window window, boolean darkMode) {
         int vis = window.getDecorView().getSystemUiVisibility();
@@ -582,25 +582,6 @@ public class StatusBarUtil {
             }
         }
         window.getDecorView().setSystemUiVisibility(vis);
-    }
-
-    private static void setFlymeStatusBarDarkMode(Window window, boolean darkMode) {
-        FlymeStatusBarUtils.setStatusBarDarkIcon(window, darkMode);
-    }
-
-    private static void setMIUIStatusBarDarkMode(Window window, boolean darkMode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            Class<? extends Window> clazz = window.getClass();
-            try {
-                Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
-                Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
-                int darkModeFlag = field.getInt(layoutParams);
-                Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-                extraFlagField.invoke(window, darkMode ? darkModeFlag : 0, darkModeFlag);
-            } catch (Exception e) {
-            }
-        }
-        setStatusBarDarkMode(window, darkMode);
     }
 
     private static void setStatusBarDarkMode(Window window, boolean darkMode) {
@@ -650,11 +631,10 @@ public class StatusBarUtil {
             meizuFlags.setInt(lp, value);
             activity.getWindow().setAttributes(lp);
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static void clearPreviousSetting(Activity activity) {
@@ -783,7 +763,7 @@ public class StatusBarUtil {
      * @param context context
      * @return 状态栏高度
      */
-    public static int getStatusBarHeight(Context context) {
+    private static int getStatusBarHeight(Context context) {
         // 获得状态栏高度
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(resourceId);

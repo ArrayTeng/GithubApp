@@ -23,23 +23,20 @@ public class FlymeStatusBarUtils {
         try {
             mSetStatusBarColorIcon = Activity.class.getMethod("setStatusBarDarkIcon", int.class);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
         }
         try {
             mSetStatusBarDarkIcon = Activity.class.getMethod("setStatusBarDarkIcon", boolean.class);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
         }
         try {
             mStatusBarColorFiled = WindowManager.LayoutParams.class.getField("statusBarColor");
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
         }
         try {
             Field field = View.class.getField("SYSTEM_UI_FLAG_LIGHT_STATUS_BAR");
             SYSTEM_UI_FLAG_LIGHT_STATUS_BAR = field.getInt(null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
         }
     }
 
@@ -78,8 +75,8 @@ public class FlymeStatusBarUtils {
         if (mSetStatusBarColorIcon != null) {
             try {
                 mSetStatusBarColorIcon.invoke(activity, color);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+            } catch (InvocationTargetException e) {
             }
         } else {
             boolean whiteColor = isBlackColor(color, 50);
@@ -136,8 +133,10 @@ public class FlymeStatusBarUtils {
                 f2.setInt(winParams, meizuFlags);
                 return true;
             }
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException e) {
         } catch (Throwable e) {
-            e.printStackTrace();
         }
         return false;
     }
@@ -177,7 +176,6 @@ public class FlymeStatusBarUtils {
                     window.setAttributes(winParams);
                 }
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -204,8 +202,8 @@ public class FlymeStatusBarUtils {
         if (mSetStatusBarDarkIcon != null) {
             try {
                 mSetStatusBarDarkIcon.invoke(activity, dark);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+            } catch (InvocationTargetException e) {
             }
         } else {
             if (flag) {
