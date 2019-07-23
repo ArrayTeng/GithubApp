@@ -76,19 +76,32 @@ fun hideSoftInputKeyBoard(context: Context, focusView: View?) {
  * 获取屏幕大小
  *
  * @param context
- * @return
+ * @return 返回一个数组对象 宽和高
  */
 fun getScreenPixelSize(context: Context): IntArray {
     val metrics = getDisplayMetrics(context)
     return intArrayOf(metrics.widthPixels, metrics.heightPixels)
 }
 
+/**
+ * 获取屏幕高度
+ */
+fun getScreenHeight(context: Context): Int {
+    return getDisplayMetrics(context).heightPixels
+}
+
+/**
+ * 获取屏幕宽度
+ */
+fun getScreenWidth(context: Context): Int {
+    return getDisplayMetrics(context).widthPixels
+}
+
 fun getDisplayMetrics(context: Context): DisplayMetrics {
-    val activity: Activity
-    if (context !is Activity && context is ContextWrapper) {
-        activity = context.baseContext as Activity
+    val activity: Activity = if (context !is Activity && context is ContextWrapper) {
+        context.baseContext as Activity
     } else {
-        activity = context as Activity
+        context as Activity
     }
     val metrics = DisplayMetrics()
     activity.windowManager.defaultDisplay.getMetrics(metrics)

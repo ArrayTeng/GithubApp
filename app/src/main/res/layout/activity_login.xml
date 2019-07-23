@@ -16,10 +16,10 @@
         android:scaleType="centerInside"/>
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/edit_login"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_above="@+id/tv_register"
+        android:layout_above="@+id/edit_register"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="23dp"
         android:alpha="1"
@@ -29,7 +29,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/tv_register"
+        android:id="@+id/edit_register"
         android:layout_width="250dp"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
