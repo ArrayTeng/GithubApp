@@ -3,9 +3,12 @@ package com.example.todo
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.example.todo.R.id.drawable_text_login
+import com.example.todo.R.id.login_body
 import com.example.todo.utils.px2Dp
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -15,11 +18,25 @@ import kotlinx.android.synthetic.main.activity_login.*
  * email tengfeigo@outlook.com
  * description 登录注册界面
  */
-class LoginRegisterActivity : AppCompatActivity() {
+class LoginRegisterActivity : AppCompatActivity(), View.OnClickListener {
+
+    override fun onClick(v: View?) = when (v!!.id) {
+        R.id.login_bt_login -> {
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+        else -> {
+
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        login_bt_login.setOnClickListener(this)
+
+
         login_body.visibility = View.GONE
         drawable_text_login.post {
             initLocation()
@@ -33,7 +50,7 @@ class LoginRegisterActivity : AppCompatActivity() {
      */
     private fun initLogAnim() {
 
-        val translationLogAnimator = ObjectAnimator.ofFloat(drawable_text_login, "translationY", drawable_text_login.translationY, px2Dp(this,drawable_text_login.top.toFloat()))
+        val translationLogAnimator = ObjectAnimator.ofFloat(drawable_text_login, "translationY", drawable_text_login.translationY, px2Dp(this, drawable_text_login.top.toFloat()))
         translationLogAnimator.duration = 3000
         translationLogAnimator.start()
         translationLogAnimator.addListener(object : Animator.AnimatorListener {
@@ -54,7 +71,7 @@ class LoginRegisterActivity : AppCompatActivity() {
     }
 
     private fun initBottomAnim() {
-        val translationBody = ObjectAnimator.ofFloat(login_body, "translationY", drawable_text_login.translationY, px2Dp(this,drawable_text_login.top.toFloat()))
+        val translationBody = ObjectAnimator.ofFloat(login_body, "translationY", drawable_text_login.translationY, px2Dp(this, drawable_text_login.top.toFloat()))
 
         val alphaAnimationBody = ObjectAnimator.ofFloat(login_body, "alpha", 0F, 1F)
 

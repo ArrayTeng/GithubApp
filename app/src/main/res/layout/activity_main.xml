@@ -12,12 +12,53 @@
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp45"
-        android:background="@color/color06"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent" >
+        android:background="@color/color06"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <com.example.todo.widget.bottom.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/ic_complete_no_select"
+            app:iconSelected="@mipmap/ic_complete_select"
+            app:itemMarginTop="5dp"
+            app:itemText="已完成"
+            app:itemTextSize="14sp"
+            app:textColorNormal="@color/color08"
+            app:textColorSelected="@color/color07"
+            app:openTouchBg="true"
+            app:touchDrawable="@drawable/selector_bg"/>
+
+        <com.example.todo.widget.bottom.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/ic_no_complete_no_select"
+            app:iconSelected="@mipmap/ic_no_complete_select"
+            app:itemMarginTop="5dp"
+            app:itemText="待完成"
+            app:itemTextSize="14sp"
+            app:textColorNormal="@color/color08"
+            app:textColorSelected="@color/color07"
+            app:openTouchBg="true"
+            app:touchDrawable="@drawable/selector_bg"/>
+
+        <com.example.todo.widget.bottom.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/ic_ming_no_select"
+            app:iconSelected="@mipmap/ic_ming_select"
+            app:itemMarginTop="5dp"
+            app:itemText="我的"
+            app:itemTextSize="14sp"
+            app:textColorNormal="@color/color08"
+            app:textColorSelected="@color/color07"
+            app:openTouchBg="true"
+            app:touchDrawable="@drawable/selector_bg"/>
     </com.example.todo.widget.bottom.BottomBarLayout>
 
     <FrameLayout
@@ -27,14 +68,4 @@
         app:layout_constraintBottom_toTopOf="@id/main_bottom"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.todo.widget.titlebar.CommonTitleBar
-        android:id="@+id/titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        titlebar:centerText="标题栏"
-        titlebar:centerType="textView"
-        titlebar:leftDrawable="@drawable/comm_titlebar_back_normal"
-        titlebar:leftDrawablePadding="0dp"
-        titlebar:leftText="返回"
-        titlebar:leftType="textView"/>
 </android.support.constraint.ConstraintLayout>
