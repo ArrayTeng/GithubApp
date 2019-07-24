@@ -154,4 +154,14 @@
     </declare-styleable>
     <!-- 自定义标题栏 end-->
 
+
+    <declare-styleable name="drawableText">
+        <attr name="drawableText_leftDrawable" format="reference|integer" />
+        <attr name="drawableText_rightDrawable" format="reference|integer" />
+        <attr name="drawableText_topDrawable" format="reference|integer" />
+        <attr name="drawableText_bottomDrawable" format="reference|integer" />
+        <attr name="drawableText_drawableWidth" format="dimension" />
+        <attr name="drawableText_drawableHeight" format="dimension" />
+    </declare-styleable>
+
 </resources>

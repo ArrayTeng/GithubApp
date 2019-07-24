@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_launcher.*
  * @author tengfei
  * date 2019/7/21 11:14 PM
  * email tengfeigo@outlook.com
- * description
+ * description 启动页
  */
 class LauncherActivity : AppCompatActivity() {
 
