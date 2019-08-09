@@ -39,6 +39,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         // Set up the login form.
+        email.setText(Settings.email)
+        password.setText(Settings.passWord)
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -98,6 +100,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         if (mAuthTask != null) {
             return
         }
+        Settings.email = email.text.toString()
+        Settings.passWord = password.text.toString()
 
         // Reset errors.
         email.error = null
