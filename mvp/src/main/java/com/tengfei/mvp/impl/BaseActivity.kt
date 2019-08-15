@@ -1,56 +1,30 @@
 package com.tengfei.mvp.impl
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import com.tengfei.mvp.IPresenter
 import com.tengfei.mvp.IView
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.KClass
-import kotlin.reflect.full.isSubclassOf
-import kotlin.reflect.full.primaryConstructor
-import kotlin.reflect.jvm.jvmErasure
 
 /**
  * @author tengfei
- * date 2019/8/12 2:54 PM
+ * date 2019/8/15 8:14 PM
  * email tengfeigo@outlook.com
  * description
  */
-class BaseFragment<out P : BasePresenter<BaseFragment<P>>> : IView<P>, Fragment() {
-    override val presenter: P
+class BaseActivity<out P : BasePresenter<BaseActivity<P>>> : IView<P>, AppCompatActivity() {
 
+    override val presenter: P
 
     init {
         presenter = createPresenterJava()
         presenter.view = this
     }
 
-    private fun createPresenterKt(): P {
-        sequence {
-            var thisClass: KClass<*> = this@BaseFragment::class
-            while (true) {
-                //supertypes 找到当前类型的直接父类基类列表
-                yield(thisClass.supertypes)
-                thisClass = thisClass.supertypes.firstOrNull()?.jvmErasure ?: break
-            }//实际上这里的 flatMap 操作的是 SequenceScope<List<KType>>
-        }.flatMap { it ->
-            it.flatMap {
-                //获取父类里的泛型实参
-                it.arguments
-            }.asSequence()//转变成泛型实参的序列
-        }.first {
-            //如果是 IPresenter 的类型，那么执行到 let 里的代码
-            it.type?.jvmErasure?.isSubclassOf(IPresenter::class) ?: false
-        }.let {
-            @Suppress("UNCHECKED_CAST")
-            return it.type!!.jvmErasure.primaryConstructor!!.call() as P
-        }
-    }
-
     private fun createPresenterJava(): P {
         sequence<Type> {
-            var thisClass: Class<*> = this@BaseFragment.javaClass
+            var thisClass: Class<*> = this@BaseActivity.javaClass
             while (true) {
                 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
                 // genericSuperclass ：java 反射中 获得带有泛型的父类
@@ -84,14 +58,13 @@ class BaseFragment<out P : BasePresenter<BaseFragment<P>>> : IView<P>, Fragment(
         presenter.onResume()
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        presenter.onViewStateRestored(savedInstanceState)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         presenter.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        presenter.onViewStateRestored(savedInstanceState)
     }
 
     override fun onPause() {
