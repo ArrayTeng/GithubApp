@@ -1,5 +1,7 @@
 package com.tengfei.common
 
+import com.tengfei.common.ext.no
+import com.tengfei.common.ext.otherWise
 import org.junit.Test
 
 /**

@@ -1,6 +1,6 @@
 package com.tengfei.github
 
-import com.tengfei.common.Preference
+import com.tengfei.common.ext.Preference
 
 /**
  * @author tengfei

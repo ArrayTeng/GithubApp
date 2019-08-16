@@ -17,7 +17,7 @@ import kotlin.reflect.jvm.jvmErasure
  * email tengfeigo@outlook.com
  * description
  */
-class BaseFragment<out P : BasePresenter<BaseFragment<P>>> : IView<P>, Fragment() {
+open class BaseFragment<out P : BasePresenter<BaseFragment<P>>> : IView<P>, Fragment() {
     override val presenter: P
 
 
