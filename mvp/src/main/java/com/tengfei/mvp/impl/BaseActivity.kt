@@ -13,7 +13,7 @@ import java.lang.reflect.Type
  * email tengfeigo@outlook.com
  * description
  */
-class BaseActivity<out P : BasePresenter<BaseActivity<P>>> : IView<P>, AppCompatActivity() {
+open class BaseActivity<out P : BasePresenter<BaseActivity<P>>> : IView<P>, AppCompatActivity() {
 
     override val presenter: P
 

@@ -1,6 +1,7 @@
-package com.tengfei.github
+package com.tengfei.github.settings
 
 import com.tengfei.common.ext.Preference
+import com.tengfei.github.AppContext
 
 /**
  * @author tengfei
@@ -13,3 +14,4 @@ object Settings {
     var email: String by Preference(AppContext, "email", "")
     var passWord: String by Preference(AppContext, "passWord", "")
 }
+
