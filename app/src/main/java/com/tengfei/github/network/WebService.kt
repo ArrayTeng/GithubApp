@@ -1,4 +1,4 @@
-package com.tengfei.github.network.service
+package com.tengfei.github.network
 
 import com.tengfei.common.ext.ensureDir
 import com.tengfei.github.AppContext

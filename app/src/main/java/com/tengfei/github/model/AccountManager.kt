@@ -1,7 +1,10 @@
 package com.tengfei.github.model
 
+import com.tengfei.common.ext.Preference
+import com.tengfei.github.AppContext
 import com.tengfei.github.entity.AccountEntitiesRequest
 import com.tengfei.github.network.service.AuthService
+import com.tengfei.github.utils.pref
 import org.jetbrains.anko.Android
 import rx.Observable
 import rx.Scheduler
@@ -14,18 +17,19 @@ import rx.schedulers.Schedulers
  * email tengfeigo@outlook.com
  * description
  */
-class AccountManager {
+object AccountManager {
+
+    var userName: String by Preference(AppContext, "userName_AccountManager", "")
+    var passWord: String by Preference(AppContext, "passWord_AccountManager", "")
 
 
     fun login() {
-//        AuthService.createAuthorization(AccountEntitiesRequest())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnNext {
-//
-//                }
-//                .retryWhen {
-//
-//                }
+        AuthService.createAuthorization(AccountEntitiesRequest())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+
+                }
+
     }
 }

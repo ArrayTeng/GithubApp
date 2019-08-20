@@ -2,9 +2,9 @@ package com.tengfei.github.network.service
 
 import com.tengfei.github.entity.AccountEntitiesRequest
 import com.tengfei.github.entity.AccountEntitiesResponse
+import com.tengfei.github.network.retrofit
 import com.tengfei.github.settings.Configs
 import retrofit2.Response
-import retrofit2.Retrofit
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.PUT
