@@ -1,9 +1,9 @@
 package com.tengfei.github.network.service
 
-import android.database.Observable
 import com.tengfei.github.entity.User
 import com.tengfei.github.network.retrofit
 import retrofit2.http.GET
+import rx.Observable
 
 /**
  * @author tengfei

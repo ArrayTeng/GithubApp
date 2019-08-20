@@ -1,7 +1,7 @@
 package com.tengfei.github.intercepts
 
 import android.util.Base64
-import com.tengfei.github.model.AccountManager
+import com.tengfei.github.model.account.AccountManager
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -20,12 +20,12 @@ class AuthIntercept : Interceptor {
                         request.url().pathSegments().contains("authorizations") -> {
                             //用用户登录后的用户名密码拼接字符串
                             val userCredentials = AccountManager.userName + ":" + AccountManager.passWord
-                            val auth = "Basic" + String(Base64.encode(userCredentials.toByteArray(), Base64.DEFAULT)).trim()
+                            val auth = "Basic " + String(Base64.encode(userCredentials.toByteArray(), Base64.DEFAULT)).trim()
                             header("Authorization", auth)
                         }
 
                         AccountManager.isLogin() -> {
-                            val auth = "Token" + AccountManager.token
+                            val auth = "Token " + AccountManager.token
                             header("Authorization", auth)
                         }
 

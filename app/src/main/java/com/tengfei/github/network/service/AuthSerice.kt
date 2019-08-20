@@ -32,7 +32,7 @@ interface AuthApi {
      * 删除鉴权
      */
     @DELETE("/authorizations/{authorization_id}")
-    fun deleteAuthorization(@Path("authorization_id") authorizationId: String): Observable<Response<Any>>
+    fun deleteAuthorization(@Path("authorization_id") authorizationId: Int): Observable<Response<Any>>
 
 }
 

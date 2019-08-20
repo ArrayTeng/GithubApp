@@ -19,7 +19,7 @@ data class AccountEntitiesRequest(var client_secret: String = Configs.Account.cl
 
 
 @PoKo
-data class AccountEntitiesResponse(var id: String,
+data class AccountEntitiesResponse(var id: Int,
                                    var url: String,
                                    var scopes: List<String>,
                                    var token: String,

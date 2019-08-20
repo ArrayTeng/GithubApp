@@ -1,5 +1,7 @@
 package com.tengfei.github.presenter
 
+import android.util.Log
+import com.tengfei.github.model.account.AccountManager
 import com.tengfei.github.view.LoginActivity
 import com.tengfei.mvp.impl.BasePresenter
 
@@ -10,4 +12,14 @@ import com.tengfei.mvp.impl.BasePresenter
  * description
  */
 class LoginPresenter : BasePresenter<LoginActivity>() {
+
+    fun doLogin(name: String, password: String) {
+        AccountManager.userName = name
+        AccountManager.passWord = password
+        AccountManager.login().subscribe({
+            Log.i("tmdXX","登录成功")
+        }, {
+            Log.i("tmdXX",it.message)
+        })
+    }
 }
