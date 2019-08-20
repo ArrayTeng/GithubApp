@@ -2,6 +2,7 @@ package com.tengfei.github.network
 
 import com.tengfei.common.ext.ensureDir
 import com.tengfei.github.AppContext
+import com.tengfei.github.intercepts.AuthIntercept
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,6 +33,7 @@ private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .writeTimeout(60, TimeUnit.SECONDS)
         .cache(Cache(cacheFile, 1024 * 1024 * 1024))
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addInterceptor(AuthIntercept())
         .build()
 
 

@@ -15,13 +15,15 @@ import rx.schedulers.Schedulers
  * @author tengfei
  * date 2019/8/19 4:02 PM
  * email tengfeigo@outlook.com
- * description
+ * description 用户管理类
  */
 object AccountManager {
 
     var userName: String by Preference(AppContext, "userName_AccountManager", "")
     var passWord: String by Preference(AppContext, "passWord_AccountManager", "")
+    var token: String by Preference(AppContext, "token_AccountManager", "")
 
+    fun isLogin(): Boolean = TODO()
 
     fun login() {
         AuthService.createAuthorization(AccountEntitiesRequest())
