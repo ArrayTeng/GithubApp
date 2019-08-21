@@ -8,8 +8,10 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory2
 import retrofit2.converter.gson.GsonConverterFactory
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -44,7 +46,7 @@ val retrofit by lazy {
     Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory2.createWithScheduler(Schedulers.io(), AndroidSchedulers.mainThread()))
             .client(okHttpClient)
             .build()
 }

@@ -1,5 +1,7 @@
 package com.tengfei.github.intercepts
 
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.util.Base64
 import com.tengfei.github.model.account.AccountManager
 import okhttp3.Interceptor
@@ -12,6 +14,7 @@ import okhttp3.Response
  * description github 每个接口都是需要鉴权的，定义鉴权拦截器
  */
 class AuthIntercept : Interceptor {
+    @RequiresApi(Build.VERSION_CODES.FROYO)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         return chain.proceed(request.newBuilder()

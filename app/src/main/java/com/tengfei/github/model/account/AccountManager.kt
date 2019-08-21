@@ -95,10 +95,11 @@ object AccountManager {
             }.map {
                 currentUser = it
                 notifyLogin(it)
-            }//表示请求在 io 线程中使用
-            .subscribeOn(Schedulers.io())
+            }
+            //表示请求在 io 线程中使用
+            //.subscribeOn(Schedulers.io())
             //最终结果在主线程中输出
-            .observeOn(AndroidSchedulers.mainThread())
+            //.observeOn(AndroidSchedulers.mainThread())
 
     /**
      * 有 token 表示登录，没有 token 表示没有登录
@@ -117,8 +118,10 @@ object AccountManager {
                 } else {
                     throw HttpException(it)
                 }
-            }.observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            }
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+
 
     class AccountException(val accountEntitiesResponse: AccountEntitiesResponse) : Exception("already login")
 }

@@ -1,6 +1,7 @@
 package com.tengfei.github.presenter
 
 import android.util.Log
+import com.tengfei.github.BuildConfig
 import com.tengfei.github.model.account.AccountManager
 import com.tengfei.github.view.LoginActivity
 import com.tengfei.mvp.impl.BasePresenter

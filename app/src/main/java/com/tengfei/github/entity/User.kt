@@ -1,6 +1,8 @@
 package com.tengfei.github.entity
 
+import android.os.Parcelable
 import com.tengfei.common.anno.PoKo
+import kotlinx.android.parcel.Parcelize
 
 /**
  * @author tengfei
@@ -9,6 +11,7 @@ import com.tengfei.common.anno.PoKo
  * description 定义鉴权User response
  */
 @PoKo
+@Parcelize
 data class User(var login: String,
                 var id: Int,
                 var node_id: String,
@@ -47,11 +50,12 @@ data class User(var login: String,
                 var collaborators: Int,
                 var two_factor_authentication: Boolean,
                 var plan: Plan
-)
+) : Parcelable
 
 @PoKo
+@Parcelize
 data class Plan(var name: String,
                 var space: Int,
                 var private_repos: Int,
-                var collaborators: Int)
+                var collaborators: Int) : Parcelable
 
