@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:padding="16dp"
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <cn.carbs.android.avatarimageview.library.AppCompatAvatarImageView
+        android:id="@+id/avatarImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/ic_github" />
+
+    <TextView
+        android:id="@+id/navHeaderUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="tengfei"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/navHeaderEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tengfei599100@outlook.com"
+        android:textColor="@android:color/white" />
+</LinearLayout>
