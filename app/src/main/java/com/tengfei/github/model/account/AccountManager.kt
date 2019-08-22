@@ -53,7 +53,7 @@ object AccountManager {
      * 保存用户
      */
     private var userJson: String by Preference(AppContext, "userJson_AccountManager", "")
-    private var currentUser: User? = null
+    var currentUser: User? = null
         get() {
             if (field == null && userJson.isNotEmpty()) {
                 field = Gson().fromJson<User>(userJson)

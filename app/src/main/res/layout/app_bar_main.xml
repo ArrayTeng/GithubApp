@@ -7,13 +7,27 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/black">
+        android:background="@color/windowBackgroundInverse">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/appBarMainToolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
     </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior" />
 </android.support.design.widget.CoordinatorLayout>

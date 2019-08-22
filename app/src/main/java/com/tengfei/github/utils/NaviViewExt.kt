@@ -23,6 +23,9 @@ import android.support.v4.widget.DrawerLayout.DrawerListener
  */
 
 inline fun NavigationView.doOnLayoutAvailable(crossinline block: () -> Unit) {
+    /**
+     * 只有当 View 至少经历过一次 layout 时，isLaidOut() 方法才能返回 true
+     */
     ViewCompat.isLaidOut(this).yes {
         block()
     }.otherWise {

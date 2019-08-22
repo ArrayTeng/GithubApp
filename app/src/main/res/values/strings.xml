@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GithubApp</string>
-    <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
+    <string name="about">About</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -13,5 +13,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="about">about</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="open_source_licenses"><a>Open Source Licenses</a></string>
+    <string name="click_to_login">Click to Login</string>
+
+    <string name="repo_description_template">[%1$s](%2$s)/[%3$s](%4$s) \n\n Created by [%5$s](%6$s) on %7$s</string>
+
 </resources>
