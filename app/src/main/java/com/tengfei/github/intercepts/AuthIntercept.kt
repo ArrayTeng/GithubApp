@@ -20,7 +20,7 @@ class AuthIntercept : Interceptor {
         return chain.proceed(request.newBuilder()
                 .apply {
                     when {
-                        request.url().pathSegments().contains("authorizations") -> {
+                        request.url.pathSegments.contains("authorizations") -> {
                             //用用户登录后的用户名密码拼接字符串
                             val userCredentials = AccountManager.userName + ":" + AccountManager.passWord
                             val auth = "Basic " + String(Base64.encode(userCredentials.toByteArray(), Base64.DEFAULT)).trim()

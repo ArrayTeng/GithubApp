@@ -35,7 +35,7 @@ object AccountManager {
     var token: String by Preference(AppContext, "token_AccountManager", "")
     var authId: Int by Preference(AppContext, "authId_AccountManager", -1)
 
-    private val onAccountStateChangeListeners = ArrayList<OnAccountStateChangeListener>()
+    val onAccountStateChangeListeners = ArrayList<OnAccountStateChangeListener>()
 
     private fun notifyLogin(user: User) {
         onAccountStateChangeListeners.forEach {

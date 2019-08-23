@@ -1,23 +1,29 @@
 package com.tengfei.github.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import com.tengfei.common.ext.no
 import com.tengfei.common.ext.otherWise
 import com.tengfei.common.ext.yes
 import com.tengfei.github.R
 import com.tengfei.github.entity.User
 import com.tengfei.github.model.account.AccountManager
+import com.tengfei.github.model.account.OnAccountStateChangeListener
 import com.tengfei.github.utils.doOnLayoutAvailable
 import com.tengfei.github.utils.loadWithGlide
+import com.tengfei.github.utils.showFragment
+import com.tengfei.github.view.fragments.AboutFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.imageResource
-import org.jetbrains.anko.sdk15.listeners.onClick
 import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +32,12 @@ class MainActivity : AppCompatActivity() {
         val toggle = ActionBarDrawerToggle(this, mainDrawerLayout, appBarMainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         mainDrawerLayout.setDrawerListener(toggle)
         toggle.syncState()
+        initNavigationView()
+        showFragment(R.id.fragmentContainer,AboutFragment::class.java)
     }
 
     private fun initNavigationView() {
+        AccountManager.onAccountStateChangeListeners.add(this)
         /**
          * Kotlin 中的let，当不为Null时执行let后面的代码块
          */
@@ -38,17 +47,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigationViewEvent() {
-        // 这里就是使用Anko的好处，可以帮我们简化很多代码
         navigationView.doOnLayoutAvailable {
-            navHeaderLayout.onClick {
-                AccountManager.isLogin().yes {
+
+            navHeaderLayout.setOnClickListener {
+                AccountManager.isLogin().no {
+                    //跳转到登陆界面
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }.otherWise {
                     AccountManager.loginOut().subscribe({
                         toast("注销账号")
-                    },{
+                    }, {
                         it.printStackTrace()
                     })
-                }.otherWise {
-                    //跳转到登陆界面
                 }
             }
         }
@@ -69,6 +79,30 @@ class MainActivity : AppCompatActivity() {
             navHeaderEmailView.text = ""
             navHeaderAvatarImageView.imageResource = R.drawable.ic_github
         }
+    }
+
+    /**
+     * 回调登陆成功
+     */
+    override fun onLogin(user: User) = updateNavigationView(user)
+
+    /**
+     * 回调退出登陆
+     */
+    override fun onLoginOut() = clearNavigationView()
+
+    override fun onBackPressed() {
+        mainDrawerLayout.isDrawerOpen(GravityCompat.START).yes {
+            mainDrawerLayout.closeDrawer(GravityCompat.START)
+        }.otherWise {
+            super.onBackPressed()
+        }
+
+    }
+
+    override fun onDestroy() {
+        AccountManager.onAccountStateChangeListeners.remove(this)
+        super.onDestroy()
     }
 }
 
