@@ -1,12 +1,13 @@
 package com.tengfei.github.network.service
 
-import android.database.Observable
 import com.tengfei.github.entity.Repository
+import com.tengfei.github.entity.SearchRepository
 import com.tengfei.github.network.retrofit
 import retrofit2.adapter.rxjava.GitHubPaging
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import rx.Observable
 
 /**
  * @author tengfei
@@ -26,8 +27,13 @@ interface RepositoryApi {
     @GET("/users/{userName}/repos?type=all")
     fun listRepositoriesOfUser(@Path("userName") userName: String,
                                @Query("page") page: Int = 1,
-                               @Query("per_page") per_page: Int = 20):Observable<GitHubPaging<Repository>>
+                               @Query("per_page") per_page: Int = 20): Observable<GitHubPaging<Repository>>
 
+
+    @GET("/search/repositories?order=desc&sort=updated")
+    fun listRepositoriesOfSearch(@Query("q") q: String,
+                                 @Query("page") page: Int = 1,
+                                 @Query("per_page") per_page: Int = 20): Observable<SearchRepository>
 }
 
 

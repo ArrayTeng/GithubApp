@@ -15,6 +15,10 @@
  */
 package retrofit2.adapter.rxjava;
 
+import android.util.Log;
+
+import com.tengfei.github.entity.PagingWrapper;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -113,11 +117,12 @@ public final class RxJavaCallAdapterFactory2 extends CallAdapter.Factory {
         }
 
         if (isCompletable) {
-            return new RxJavaCallAdapter2(Void.class, schedulerSubscribeOn, schedulerObserveOn,isAsync, false, true, false, true);
+            return new RxJavaCallAdapter2(Void.class, schedulerSubscribeOn, schedulerObserveOn,isAsync, false, true, false, true,false);
         }
 
         boolean isResult = false;
         boolean isBody = false;
+        boolean isPaging = false;
         Type responseType;
         if (!(returnType instanceof ParameterizedType)) {
             String name = isSingle ? "Single" : "Observable";
@@ -126,6 +131,7 @@ public final class RxJavaCallAdapterFactory2 extends CallAdapter.Factory {
         }
 
         Type observableType = getParameterUpperBound(0, (ParameterizedType) returnType);
+
         Class<?> rawObservableType = getRawType(observableType);
         if (rawObservableType == Response.class) {
             if (!(observableType instanceof ParameterizedType)) {
@@ -140,12 +146,23 @@ public final class RxJavaCallAdapterFactory2 extends CallAdapter.Factory {
             }
             responseType = getParameterUpperBound(0, (ParameterizedType) observableType);
             isResult = true;
+        } else if (rawObservableType == GitHubPaging.class) {
+            if (!(observableType instanceof ParameterizedType)) {
+                throw new IllegalStateException("Result must be parameterized"
+                        + " as GitHubPaging<Foo> or Result<? extends Foo>");
+            }
+            responseType = observableType;
+            isPaging = true;
+        } else if (PagingWrapper.class.isAssignableFrom(rawObservableType)) {
+
+            responseType = observableType;
+            isPaging = true;
         } else {
             responseType = observableType;
             isBody = true;
         }
 
         return new RxJavaCallAdapter2(responseType, schedulerSubscribeOn,schedulerObserveOn, isAsync, isResult, isBody, isSingle,
-                false);
+                false,isPaging);
     }
 }
