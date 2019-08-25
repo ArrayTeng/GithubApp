@@ -37,9 +37,11 @@ final class RxJavaCallAdapter2<R> implements CallAdapter<R, Object> {
     private final boolean isBody;
     private final boolean isSingle;
     private final boolean isCompletable;
+    private final boolean isPaging;
+
 
     RxJavaCallAdapter2(Type responseType, @Nullable Scheduler schedulerSubscribeOn, Scheduler schedulerObserveOn, boolean isAsync,
-                       boolean isResult, boolean isBody, boolean isSingle, boolean isCompletable) {
+                       boolean isResult, boolean isBody, boolean isSingle, boolean isCompletable,boolean isPaging) {
         this.responseType = responseType;
         this.schedulerSubscribeOn = schedulerSubscribeOn;
         this.schedulerObserveOn = schedulerObserveOn;
@@ -48,6 +50,7 @@ final class RxJavaCallAdapter2<R> implements CallAdapter<R, Object> {
         this.isBody = isBody;
         this.isSingle = isSingle;
         this.isCompletable = isCompletable;
+        this.isPaging = isPaging;
     }
 
     @Override
