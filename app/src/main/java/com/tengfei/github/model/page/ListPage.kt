@@ -33,6 +33,9 @@ abstract class ListPage<DateType> : DateProvider<DateType> {
         date
     }
 
+    /**
+     * 从第一页开始加载到 pageCount 页面，返回的数据是这些页面的总和
+     */
     fun loadFromFirst(pageCount: Int) = Observable.range(1, pageCount)
             .concatMap {
                 getDate(it)

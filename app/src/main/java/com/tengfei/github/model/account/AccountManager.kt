@@ -11,8 +11,6 @@ import com.tengfei.github.network.service.UserService
 import com.tengfei.github.utils.fromJson
 import retrofit2.HttpException
 import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import java.lang.Exception
 
 /**

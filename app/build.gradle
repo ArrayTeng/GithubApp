@@ -5,6 +5,8 @@ apply plugin: 'com.apollographql.android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-noarg'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+
 
 //通过 apply from 可以导入一个gradle文件
 apply from: "./local.gradle"
@@ -12,6 +14,11 @@ apply from: "./local.gradle"
 noArg {
     annotations "com.tengfei.common.anno.PoKo"
 }
+
+allOpen{
+    annotations "com.tengfei.common.anno.PoKo"
+}
+
 
 /**
  * 如果你的类需要借助KAE进行序列化，那么kotlin闭包下的代码必须写
