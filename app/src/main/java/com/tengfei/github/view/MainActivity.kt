@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.tengfei.common.ext.no
 import com.tengfei.common.ext.otherWise
 import com.tengfei.common.ext.yes
@@ -13,9 +12,7 @@ import com.tengfei.github.R
 import com.tengfei.github.entity.User
 import com.tengfei.github.model.account.AccountManager
 import com.tengfei.github.model.account.OnAccountStateChangeListener
-import com.tengfei.github.network.service.RepositoryService
 import com.tengfei.github.utils.doOnLayoutAvailable
-import com.tengfei.github.utils.format
 import com.tengfei.github.utils.loadWithGlide
 import com.tengfei.github.utils.showFragment
 import com.tengfei.github.view.fragments.AboutFragment
@@ -24,7 +21,6 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.toast
-import java.util.*
 
 class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
 

@@ -8,7 +8,7 @@ import rx.Observable
  * @author tengfei
  * date 2019-08-25 20:58
  * email tengfeigo@outlook.com
- * description
+ * description 对列表页面加载更多和刷新的操作，如果你的页面是一个列表可以使用它
  */
 abstract class ListPage<DateType> : DateProvider<DateType> {
 

@@ -4,7 +4,7 @@ package retrofit2.adapter.rxjava
  * @author tengfei
  * date 2019-08-25 13:50
  * email tengfeigo@outlook.com
- * description
+ * description 继承了 ArrayList ，针对项目对 ArrayList 的一个扩展
  */
 class GitHubPaging<T> : ArrayList<T>() {
 
