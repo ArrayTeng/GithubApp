@@ -24,7 +24,10 @@ abstract class ListPage<DateType> : DateProvider<DateType> {
      */
     val date = GitHubPaging<DateType>()
 
-    fun loadMore() = getDate(currentPage + 1).doOnNext {
+    /**
+     * 加载更多
+     */
+    fun loadMore(): Observable<GitHubPaging<DateType>> = getDate(currentPage + 1).doOnNext {
         currentPage + 1
     }.doOnError {
         logger.error(it.message)
@@ -36,14 +39,14 @@ abstract class ListPage<DateType> : DateProvider<DateType> {
     /**
      * 从第一页开始加载到 pageCount 页面，返回的数据是这些页面的总和
      */
-    fun loadFromFirst(pageCount: Int) = Observable.range(1, pageCount)
+    fun loadFromFirst(pageCount: Int = currentPage): Observable<GitHubPaging<DateType>> = Observable.range(1, pageCount)
             .concatMap {
                 getDate(it)
             }.doOnError {
                 logger.error(it.message)
-            }.reduce {
-                acc, page -> acc.mergeData(page)
-            }.doOnNext{
+            }.reduce { acc, page ->
+                acc.mergeData(page)
+            }.doOnNext {
                 date.clear()
                 date.mergeData(it)
             }

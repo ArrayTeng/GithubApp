@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
  * email tengfeigo@outlook.com
  * description
  */
-class AdapterList<T>(val adapter: RecyclerView.Adapter<*>): ArrayList<T>(){
+class AdapterList<T>(val adapter: RecyclerView.Adapter<*>) : ArrayList<T>() {
     override fun removeAt(index: Int): T {
         return super.removeAt(index).apply { adapter.notifyItemRemoved(index) }
     }
@@ -45,7 +45,7 @@ class AdapterList<T>(val adapter: RecyclerView.Adapter<*>): ArrayList<T>(){
         return super.addAll(index, elements).apply { adapter.notifyDataSetChanged() }
     }
 
-    fun update(elements: Collection<T>){
+    fun update(elements: Collection<T>) {
         super.clear()
         super.addAll(elements)
         adapter.notifyDataSetChanged()
