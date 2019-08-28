@@ -59,6 +59,8 @@ dependencies {
     api 'cn.carbs.android:AvatarImageView:1.0.4'
 
     api 'com.jaeger.statusbarutil:library:1.5.1'
+    api 'com.github.jdsjlzx:LRecyclerView:1.5.0'
+
 
 
 
