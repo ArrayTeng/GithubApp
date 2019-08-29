@@ -30,9 +30,9 @@ abstract class CommonListPresenter<DataType, out View : CommonListFragment<DataT
 
     fun loadMore() {
         listPage.loadMore().subscribe({
-
+            view.initdataWithMore(it)
         }, {
-
+            view.ondataRefreshDataWithError(it.message ?: "error")
         }).let(subscriptionList::add)
     }
 

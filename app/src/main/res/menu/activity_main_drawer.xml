@@ -2,8 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/repository"
+            android:title="repository"
+            android:icon="@drawable/ic_repository" />
+        <item
+            android:id="@+id/people"
+            android:title="people"
+            android:icon="@drawable/ic_people" />
+        <item
+            android:id="@+id/issue"
+            android:title="issue"
+            android:icon="@drawable/ic_issue" />
+        <item
             android:id="@+id/about"
-            android:title="@string/about"
+            android:title="about"
             android:icon="@drawable/ic_about_us" />
     </group>
 

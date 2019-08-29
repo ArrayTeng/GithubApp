@@ -12,6 +12,7 @@ import com.tengfei.github.R
 import com.tengfei.github.entity.User
 import com.tengfei.github.model.account.AccountManager
 import com.tengfei.github.model.account.OnAccountStateChangeListener
+import com.tengfei.github.utils.afterClosed
 import com.tengfei.github.utils.doOnLayoutAvailable
 import com.tengfei.github.utils.loadWithGlide
 import com.tengfei.github.utils.showFragment
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
         initNavigationView()
         showFragment(R.id.fragmentContainer, AboutFragment::class.java)
         title = "About"
-
 
     }
 
@@ -81,6 +81,16 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
             navHeaderUsernameView.text = resources.getText(R.string.click_to_login)
             navHeaderEmailView.text = ""
             navHeaderAvatarImageView.imageResource = R.drawable.ic_github
+        }
+    }
+
+    /**
+     * 切换测滑子菜单的布局
+     */
+    private fun onNavItemChanged(){
+        //关闭测滑子菜单然后执行其它的步骤
+        mainDrawerLayout.afterClosed {
+
         }
     }
 
