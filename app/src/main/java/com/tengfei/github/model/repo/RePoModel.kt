@@ -19,7 +19,7 @@ import java.util.*
 class RePoDataList(val user: User?) : ListPage<Repository>() {
     override fun getDate(page: Int): Observable<GitHubPaging<Repository>> {
         return if (user == null) {
-            RepositoryService.listRepositoriesOfSearch(q = "push:<" + Date().format("yyyy-MM-dd"), page = page).map { it.paging }
+            RepositoryService.listRepositoriesOfSearch(q = "pushed:<" + Date().format("yyyy-MM-dd"), page = page).map { it.paging }
         } else {
             RepositoryService.listRepositoriesOfUser(userName = user.login, page = page)
 

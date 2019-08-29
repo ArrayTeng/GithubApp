@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter
 import com.tengfei.github.R
 import com.tengfei.github.model.page.ListPage
 import com.tengfei.github.view.widget.ErrorInfoView
@@ -38,6 +39,7 @@ abstract class CommonListFragment<DataType, out Presenter : CommonListPresenter<
         super.onViewCreated(view, savedInstanceState)
         refreshView.setColorSchemeResources(R.color.google_blue, R.color.google_green, R.color.google_red, R.color.google_yellow)
         refreshView.isRefreshing = true
+        fixRecyclerView.adapter = LuRecyclerViewAdapter(adapter)
         fixRecyclerView.setLoadMoreEnabled(true)
         fixRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         fixRecyclerView.itemAnimator = DefaultItemAnimator()

@@ -17,6 +17,7 @@ import com.tengfei.github.utils.doOnLayoutAvailable
 import com.tengfei.github.utils.loadWithGlide
 import com.tengfei.github.utils.showFragment
 import com.tengfei.github.view.fragments.AboutFragment
+import com.tengfei.github.view.fragments.RepositoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -34,8 +35,8 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
         mainDrawerLayout.setDrawerListener(toggle)
         toggle.syncState()
         initNavigationView()
-        showFragment(R.id.fragmentContainer, AboutFragment::class.java)
-        title = "About"
+
+
 
     }
 
@@ -47,6 +48,26 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
         AccountManager.currentUser?.let(::updateNavigationView) ?: run(::clearNavigationView)
 
         initNavigationViewEvent()
+
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.repository -> {
+                    showFragment(R.id.fragmentContainer, RepositoryFragment::class.java)
+                    title = "Repository"
+                }
+                R.id.people -> {
+
+                }
+                R.id.issue -> {
+
+                }
+                R.id.about -> {
+                    showFragment(R.id.fragmentContainer, AboutFragment::class.java)
+                    title = "About"
+                }
+            }
+            true
+        }
     }
 
     private fun initNavigationViewEvent() {
@@ -84,15 +105,6 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
         }
     }
 
-    /**
-     * 切换测滑子菜单的布局
-     */
-    private fun onNavItemChanged(){
-        //关闭测滑子菜单然后执行其它的步骤
-        mainDrawerLayout.afterClosed {
-
-        }
-    }
 
     /**
      * 回调登陆成功
