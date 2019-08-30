@@ -39,7 +39,7 @@ abstract class CommonListPresenter<DataType, out View : CommonListFragment<DataT
     fun refreshData() {
         listPage.loadFromFirst().subscribe({
             if (it.isEmpty()) {
-                view.initDataWithNothig()
+                view.initDataWithNothing()
             } else {
                 view.refreshData(it)
             }

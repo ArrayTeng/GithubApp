@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.support.annotation.LayoutRes
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -12,6 +13,7 @@ import com.tengfei.github.R
 import com.tengfei.github.utils.AdapterList
 import kotlinx.android.synthetic.main.item_card.view.*
 import org.jetbrains.anko.dip
+import retrofit2.adapter.rxjava.GitHubPaging
 
 /**
  * @author tengfei
@@ -19,7 +21,7 @@ import org.jetbrains.anko.dip
  * email tengfeigo@outlook.com
  * description
  */
-abstract class CommonRecyclerAdapter<DataType>(@LayoutRes val itemLayoutResId: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class CommonListAdapter<DataType>(@LayoutRes val itemLayoutResId: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val CARD_TAP_DURATION: Long = 100
@@ -32,6 +34,7 @@ abstract class CommonRecyclerAdapter<DataType>(@LayoutRes val itemLayoutResId: I
     var oldPosition: Int = -1
 
     val data = AdapterList<DataType>(this)
+
 
 
     override fun getItemId(position: Int): Long {
@@ -49,7 +52,7 @@ abstract class CommonRecyclerAdapter<DataType>(@LayoutRes val itemLayoutResId: I
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        Log.i("Common.text", "onBindViewHolder")
         onBindData(holder, data[position])
 
         holder.itemView.setOnClickListener {
@@ -66,7 +69,11 @@ abstract class CommonRecyclerAdapter<DataType>(@LayoutRes val itemLayoutResId: I
                             .duration = CARD_TAP_DURATION
                 }
                 MotionEvent.ACTION_UP -> {
-
+                    ViewCompat.animate(holder.itemView).scaleX(1F)
+                            .scaleY(1F)
+                            //holder.itemView.dip是 anko 里的方法，有时间看下 anko 里定义里哪些方法
+                            .translationZ(holder.itemView.dip(0).toFloat())
+                            .duration = CARD_TAP_DURATION
                 }
                 //当用户保持按下操作并从当前控件滑动到其它位置（可以理解为你的手指不在这个控件上的时候）会触发这个方法
                 MotionEvent.ACTION_CANCEL -> {

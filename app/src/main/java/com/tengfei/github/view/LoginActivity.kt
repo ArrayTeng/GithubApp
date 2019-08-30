@@ -18,7 +18,7 @@ class LoginActivity : BaseActivity<LoginPresenter>() {
         setContentView(R.layout.activity_login)
 
         emailSignInButton.setOnClickListener {
-            presenter.doLogin("tengfeigo@outlook.com", "TengFei1995")
+            presenter.doLogin(email.text.toString(),password.text.toString())
         }
     }
 

@@ -6,7 +6,7 @@ import com.tengfei.github.R
 import com.tengfei.github.entity.Repository
 import com.tengfei.github.utils.loadWithGlide
 import com.tengfei.github.utils.toKilo
-import com.tengfei.github.view.common.CommonRecyclerAdapter
+import com.tengfei.github.view.common.CommonListAdapter
 
 import kotlinx.android.synthetic.main.item_repo.view.*
 
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_repo.view.*
  * email tengfeigo@outlook.com
  * description
  */
-class RepositoryAdapter : CommonRecyclerAdapter<Repository>(R.layout.item_repo) {
+class RepositoryAdapter : CommonListAdapter<Repository>(R.layout.item_repo) {
     override fun onBindData(holder: RecyclerView.ViewHolder, dataType: Repository) {
         holder.itemView.apply {
             avatarView.loadWithGlide(dataType.owner.avatar_url, dataType.name.first())

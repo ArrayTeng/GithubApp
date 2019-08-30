@@ -38,7 +38,8 @@ class AdapterList<T>(val adapter: RecyclerView.Adapter<*>) : ArrayList<T>() {
     }
 
     override fun addAll(elements: Collection<T>): Boolean {
-        return super.addAll(elements).apply { adapter.notifyDataSetChanged() }
+        return super.addAll(elements).apply {
+            adapter.notifyDataSetChanged() }
     }
 
     override fun addAll(index: Int, elements: Collection<T>): Boolean {

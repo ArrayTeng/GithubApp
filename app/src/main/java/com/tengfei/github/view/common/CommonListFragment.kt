@@ -25,7 +25,7 @@ import retrofit2.adapter.rxjava.GitHubPaging
 abstract class CommonListFragment<DataType, out Presenter : CommonListPresenter<DataType,
         CommonListFragment<DataType, Presenter>>> : BaseFragment<Presenter>() {
 
-    public abstract val adapter: CommonRecyclerAdapter<DataType>
+    public abstract val adapter: CommonListAdapter<DataType>
 
     public val errorInfoView by lazy {
         ErrorInfoView(rootView)
@@ -38,13 +38,13 @@ abstract class CommonListFragment<DataType, out Presenter : CommonListPresenter<
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         refreshView.setColorSchemeResources(R.color.google_blue, R.color.google_green, R.color.google_red, R.color.google_yellow)
+        recyclerView.adapter = LuRecyclerViewAdapter(adapter)
         refreshView.isRefreshing = true
-        fixRecyclerView.adapter = LuRecyclerViewAdapter(adapter)
-        fixRecyclerView.setLoadMoreEnabled(true)
-        fixRecyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-        fixRecyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.setLoadMoreEnabled(true)
+        recyclerView.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.itemAnimator = DefaultItemAnimator()
 
-        fixRecyclerView.setOnLoadMoreListener(presenter::loadMore)
+        recyclerView.setOnLoadMoreListener(presenter::loadMore)
         refreshView.setOnRefreshListener(presenter::refreshData)
 
         presenter.initData()
@@ -56,23 +56,24 @@ abstract class CommonListFragment<DataType, out Presenter : CommonListPresenter<
         adapter.data.addAll(data)
         refreshView.isRefreshing = false
         //设置是否已加载全部
-        fixRecyclerView.setNoMore(data.isLast)
+        recyclerView.setNoMore(data.isLast)
         //一页加载的数量
-        fixRecyclerView.refreshComplete(ListPage.PAGE_SIZE)
+        recyclerView.refreshComplete(ListPage.PAGE_SIZE)
+        dismissError()
     }
 
-    fun initDataWithNothig() {
+    fun initDataWithNothing() {
         refreshView.isRefreshing = false
-        fixRecyclerView.setNoMore(true)
-        fixRecyclerView.refreshComplete(ListPage.PAGE_SIZE)
+        recyclerView.setNoMore(true)
+        recyclerView.refreshComplete(ListPage.PAGE_SIZE)
         showError("No data")
         errorInfoView.isClickable = false
     }
 
     fun initDataWithError(errorInfo: String) {
         refreshView.isRefreshing = false
-        fixRecyclerView.setNoMore(true)
-        fixRecyclerView.refreshComplete(ListPage.PAGE_SIZE)
+        recyclerView.setNoMore(true)
+        recyclerView.refreshComplete(ListPage.PAGE_SIZE)
         showError(errorInfo)
         errorInfoView.isClickable = true
         errorInfoView.setOnClickListener {
@@ -82,8 +83,8 @@ abstract class CommonListFragment<DataType, out Presenter : CommonListPresenter<
 
     fun initdataWithMore(data: GitHubPaging<DataType>){
         adapter.data.update(data)
-        fixRecyclerView.refreshComplete(ListPage.PAGE_SIZE)
-        fixRecyclerView.setNoMore(data.isLast)
+        recyclerView.refreshComplete(ListPage.PAGE_SIZE)
+        recyclerView.setNoMore(data.isLast)
         dismissError()
     }
 
@@ -96,7 +97,8 @@ abstract class CommonListFragment<DataType, out Presenter : CommonListPresenter<
                 presenter.initData()
             }
         } else {
-            toast("load fail")
+            toast("data is empty")
+            refreshView.isRefreshing = false
         }
     }
 
