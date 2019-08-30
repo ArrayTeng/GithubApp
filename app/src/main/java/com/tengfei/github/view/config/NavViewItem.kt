@@ -1,12 +1,10 @@
 package com.tengfei.github.view.config
 
-import android.os.Bundle
 import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
-import com.tengfei.github.R.id
-import com.tengfei.github.R.drawable
+import com.tengfei.github.R
 import com.tengfei.github.view.fragments.AboutFragment
+import com.tengfei.github.view.fragments.RepositoryFragment
 
 /**
  * @author tengfei
@@ -15,23 +13,21 @@ import com.tengfei.github.view.fragments.AboutFragment
  * description
  */
 
-class NavViewItem private constructor(val groupId: Int = 0, val title: String, @DrawableRes val icon: Int, val fragmentClass: Class<out Fragment>, val arguements: Bundle = Bundle()){
+class NavViewItem(val title: String, @DrawableRes val drawableId: Int, val fragmentClass: Class<out Fragment>) {
 
-    companion object{
-        private val items = mapOf(
-                id.repository to NavViewItem(0, "Issue",drawable.ic_repository, AboutFragment::class.java)
+    companion object {
+        private val fragmentItems = mapOf(
+                R.id.repository to NavViewItem("repository", R.drawable.ic_repository, RepositoryFragment::class.java),
+                R.id.people to NavViewItem("repository", R.drawable.ic_people, RepositoryFragment::class.java),
+                R.id.issue to NavViewItem("repository", R.drawable.ic_issue, RepositoryFragment::class.java),
+                R.id.about to NavViewItem("repository", R.drawable.ic_about_us, AboutFragment::class.java)
         )
 
-         fun get(@IdRes navId: Int): NavViewItem {
-            return items[navId]?: items[id.repository]!!
-        }
-
-         fun get(item: NavViewItem): Int{
-            return items.filter { it.value == item }.keys.first()
+        fun getItem(id: Int): NavViewItem {
+            return fragmentItems[id] ?: (fragmentItems[R.id.repository] ?: error(""))
         }
     }
 
-    override fun toString(): String {
-        return "NavViewItem(groupId=$groupId, title='$title', icon=$icon, fragmentClass=$fragmentClass, arguements=$arguements)"
-    }
+
+
 }

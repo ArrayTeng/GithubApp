@@ -6,13 +6,13 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v4.widget.DrawerLayout.DrawerListener
 import android.support.v7.view.menu.MenuItemImpl
 import android.view.View
 import com.tengfei.common.ext.otherWise
 import com.tengfei.common.ext.yes
 import com.tengfei.common.log.logger
 import com.tengfei.github.view.config.NavViewItem
-import android.support.v4.widget.DrawerLayout.DrawerListener
 
 
 /**
@@ -42,17 +42,17 @@ inline fun NavigationView.doOnLayoutAvailable(crossinline block: () -> Unit) {
 /**
  * 选择指定的菜单，并执行相应的操作
  */
-//@SuppressLint("RestrictedApi")
-//fun NavigationView.selectItem(@IdRes resId: Int){
-//    doOnLayoutAvailable {
-//        logger.debug("select Item: ${NavViewItem[resId].title}")
-//        setCheckedItem(resId)
-//        (menu.findItem(resId) as MenuItemImpl)()
-//    }
-//}
+@SuppressLint("RestrictedApi")
+fun NavigationView.selectItem(@IdRes resId: Int) {
+    doOnLayoutAvailable {
+        logger.debug("select Item: ${NavViewItem.getItem(resId).title}")
+        setCheckedItem(resId)
+        (menu.findItem(resId) as MenuItemImpl)()
+    }
+}
 
-inline fun DrawerLayout.afterClosed(crossinline block: () -> Unit){
-    if(isDrawerOpen(GravityCompat.START)) {
+inline fun DrawerLayout.afterClosed(crossinline block: () -> Unit) {
+    if (isDrawerOpen(GravityCompat.START)) {
         closeDrawer(GravityCompat.START)
         addDrawerListener(
                 object : DrawerListener {

@@ -16,8 +16,10 @@ import com.tengfei.github.utils.afterClosed
 import com.tengfei.github.utils.doOnLayoutAvailable
 import com.tengfei.github.utils.loadWithGlide
 import com.tengfei.github.utils.showFragment
+import com.tengfei.github.view.config.NavViewItem
 import com.tengfei.github.view.fragments.AboutFragment
 import com.tengfei.github.view.fragments.RepositoryFragment
+import com.tengfei.github.view.widget.NavigationController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -25,6 +27,10 @@ import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
+
+    private val navigationController by lazy{
+        NavigationController(navigationView,::onNavItemChanged)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +43,10 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
         initNavigationView()
 
 
-
     }
 
     private fun initNavigationView() {
+
         AccountManager.onAccountStateChangeListeners.add(this)
         /**
          * Kotlin 中的let，当不为Null时执行let后面的代码块
@@ -49,25 +55,27 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
 
         initNavigationViewEvent()
 
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.repository -> {
-                    showFragment(R.id.fragmentContainer, RepositoryFragment::class.java)
-                    title = "Repository"
-                }
-                R.id.people -> {
+        navigationController.selectProperItem()
 
-                }
-                R.id.issue -> {
-
-                }
-                R.id.about -> {
-                    showFragment(R.id.fragmentContainer, AboutFragment::class.java)
-                    title = "About"
-                }
-            }
-            true
-        }
+//        navigationView.setNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.repository -> {
+//                    showFragment(R.id.fragmentContainer, RepositoryFragment::class.java)
+//                    title = "Repository"
+//                }
+//                R.id.people -> {
+//
+//                }
+//                R.id.issue -> {
+//
+//                }
+//                R.id.about -> {
+//                    showFragment(R.id.fragmentContainer, AboutFragment::class.java)
+//                    title = "About"
+//                }
+//            }
+//            true
+//        }
     }
 
     private fun initNavigationViewEvent() {
@@ -102,6 +110,13 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
             navHeaderUsernameView.text = resources.getText(R.string.click_to_login)
             navHeaderEmailView.text = ""
             navHeaderAvatarImageView.imageResource = R.drawable.ic_github
+        }
+    }
+
+    private fun onNavItemChanged(navViewItem: NavViewItem){
+        mainDrawerLayout.afterClosed {
+            showFragment(R.id.fragmentContainer, navViewItem.fragmentClass)
+            title = navViewItem.title
         }
     }
 
