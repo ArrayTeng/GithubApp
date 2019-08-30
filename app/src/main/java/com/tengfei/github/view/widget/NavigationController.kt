@@ -2,6 +2,8 @@ package com.tengfei.github.view.widget
 
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
+import com.tengfei.github.R
+import com.tengfei.github.utils.selectItem
 import com.tengfei.github.view.config.NavViewItem
 
 /**
@@ -10,7 +12,7 @@ import com.tengfei.github.view.config.NavViewItem
  * email tengfeigo@outlook.com
  * description
  */
-class NavigationController constructor(navigationView: NavigationView, private val onNavItemClick: (NavViewItem) -> Unit) : NavigationView.OnNavigationItemSelectedListener {
+class NavigationController constructor(private val navigationView: NavigationView, private val onNavItemClick: (NavViewItem) -> Unit) : NavigationView.OnNavigationItemSelectedListener {
 
     init {
         navigationView.setNavigationItemSelectedListener(this)
@@ -23,6 +25,6 @@ class NavigationController constructor(navigationView: NavigationView, private v
     }
 
     fun selectProperItem() {
-        
+        navigationView.selectItem(R.id.repository)
     }
 }
