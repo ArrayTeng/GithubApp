@@ -17,8 +17,7 @@ import com.tengfei.github.utils.doOnLayoutAvailable
 import com.tengfei.github.utils.loadWithGlide
 import com.tengfei.github.utils.showFragment
 import com.tengfei.github.view.config.NavViewItem
-import com.tengfei.github.view.fragments.AboutFragment
-import com.tengfei.github.view.fragments.RepositoryFragment
+import com.tengfei.github.view.widget.ActionBarController
 import com.tengfei.github.view.widget.NavigationController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -30,6 +29,10 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
 
     private val navigationController by lazy{
         NavigationController(navigationView,::onNavItemChanged)
+    }
+
+    val actionBarController by lazy {
+        ActionBarController(this)
     }
 
 
@@ -57,25 +60,6 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
 
         navigationController.selectProperItem()
 
-//        navigationView.setNavigationItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.repository -> {
-//                    showFragment(R.id.fragmentContainer, RepositoryFragment::class.java)
-//                    title = "Repository"
-//                }
-//                R.id.people -> {
-//
-//                }
-//                R.id.issue -> {
-//
-//                }
-//                R.id.about -> {
-//                    showFragment(R.id.fragmentContainer, AboutFragment::class.java)
-//                    title = "About"
-//                }
-//            }
-//            true
-//        }
     }
 
     private fun initNavigationViewEvent() {

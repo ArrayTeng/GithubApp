@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import com.tengfei.github.R
 import com.tengfei.github.view.fragments.AboutFragment
 import com.tengfei.github.view.fragments.RepositoryFragment
+import com.tengfei.github.view.fragments.RepositoryListFragment
 
 /**
  * @author tengfei
@@ -18,16 +19,15 @@ class NavViewItem(val title: String, @DrawableRes val drawableId: Int, val fragm
     companion object {
         private val fragmentItems = mapOf(
                 R.id.repository to NavViewItem("repository", R.drawable.ic_repository, RepositoryFragment::class.java),
-                R.id.people to NavViewItem("repository", R.drawable.ic_people, RepositoryFragment::class.java),
-                R.id.issue to NavViewItem("repository", R.drawable.ic_issue, RepositoryFragment::class.java),
-                R.id.about to NavViewItem("repository", R.drawable.ic_about_us, AboutFragment::class.java)
+                R.id.people to NavViewItem("people", R.drawable.ic_people, RepositoryListFragment::class.java),
+                R.id.issue to NavViewItem("issue", R.drawable.ic_issue, RepositoryListFragment::class.java),
+                R.id.about to NavViewItem("about", R.drawable.ic_about_us, AboutFragment::class.java)
         )
 
         fun getItem(id: Int): NavViewItem {
             return fragmentItems[id] ?: (fragmentItems[R.id.repository] ?: error(""))
         }
     }
-
 
 
 }
