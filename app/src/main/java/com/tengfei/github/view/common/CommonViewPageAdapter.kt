@@ -2,7 +2,6 @@ package com.tengfei.github.view.common
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import com.tengfei.github.utils.FragmentPageList
 
 /**
@@ -16,7 +15,9 @@ data class FragmentPage(val fragment: Fragment, val title: String)
 
 interface IGetFragmentPageList {
 
-    fun getFragmentPageList(): List<FragmentPage>
+    fun getFragmentPageListLogin(): List<FragmentPage>
+
+    fun getFragmentPageListNoLogin():List<FragmentPage>
 }
 
 

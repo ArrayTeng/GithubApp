@@ -13,13 +13,17 @@ import kotlinx.android.synthetic.main.app_bar_main.*
  */
 class ActionBarController(val activity: MainActivity) {
 
-    private val tableLayout: TabLayout by lazy {
+     val tableLayout: TabLayout by lazy {
         activity.mainTabLayout
     }
 
 
+
     fun setUpWithViewPager(viewPager: ViewPager?) {
+
         tableLayout.setupWithViewPager(viewPager)
     }
+
+
 
 }

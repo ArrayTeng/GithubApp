@@ -13,11 +13,18 @@ import com.tengfei.github.view.common.FragmentPage
  */
 class RepositoryFragment : CommonViewPageFragment() {
 
-    companion object{
+
+    companion object {
         const val KEY_REPOSITORY_LIST_USER = "KEY_REPOSITORY_LIST_USER"
     }
 
-    override fun getFragmentPageList(): List<FragmentPage> {
+    override fun getFragmentPageListNoLogin(): List<FragmentPage> {
+        return listOf(
+                FragmentPage(RepositoryListFragment(), "ALL")
+        )
+    }
+
+    override fun getFragmentPageListLogin(): List<FragmentPage> {
         return listOf(
                 FragmentPage(RepositoryListFragment().apply { arguments = Bundle().apply { putParcelable(KEY_REPOSITORY_LIST_USER, AccountManager.currentUser) } }, "My"),
                 FragmentPage(RepositoryListFragment(), "ALL")

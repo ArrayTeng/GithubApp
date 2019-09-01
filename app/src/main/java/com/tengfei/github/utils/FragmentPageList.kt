@@ -1,6 +1,6 @@
 package com.tengfei.github.utils
 
-import android.support.v4.app.FragmentPagerAdapter
+import com.tengfei.github.view.common.FragmentPagerAdapter
 import java.util.function.UnaryOperator
 
 /**
