@@ -51,33 +51,23 @@ abstract class CommonViewPageFragment : Fragment(), IGetFragmentPageList, OnAcco
 
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        if(fragmentPagerAdapter.count<=1){
-//            (activity as MainActivity).actionBarController.tableLayout.visibility = View.GONE
-//        }else{
-//            (activity as MainActivity).actionBarController.tableLayout.visibility = View.VISIBLE
-//        }
-//    }
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).actionBarController.checkBarVisible(fragmentPagerAdapter)
+    }
 
     override fun onLogin(user: User) {
         fragmentPagerAdapter.fragmentPages.clear()
         fragmentPagerAdapter.fragmentPages.addAll(getFragmentPageListLogin())
-//        if(fragmentPagerAdapter.count<=1){
-//            (activity as MainActivity).actionBarController.tableLayout.visibility = View.GONE
-//        }else{
-//            (activity as MainActivity).actionBarController.tableLayout.visibility = View.VISIBLE
-//        }
+        (activity as MainActivity).actionBarController.checkBarVisible(fragmentPagerAdapter)
+
     }
 
     override fun onLoginOut() {
         fragmentPagerAdapter.fragmentPages.clear()
         fragmentPagerAdapter.fragmentPages.addAll(getFragmentPageListNoLogin())
-//        if(fragmentPagerAdapter.count<=1){
-//            (activity as MainActivity).actionBarController.tableLayout.visibility = View.GONE
-//        }else{
-//            (activity as MainActivity).actionBarController.tableLayout.visibility = View.VISIBLE
-//        }
+        (activity as MainActivity).actionBarController.checkBarVisible(fragmentPagerAdapter)
+
     }
 
     override fun onDestroy() {
