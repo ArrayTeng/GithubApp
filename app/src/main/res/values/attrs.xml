@@ -15,4 +15,11 @@
     </declare-styleable>
 
     <attr name="sideBarBackground" format="reference"/>
+    <attr name="textColorBlackAndWhite" format="color"/>
+    <attr name="windowBackGroundDayAndNight" format="color"/>
+
+    <declare-styleable name="SunnyAttr">
+        <attr name="sunnyTextColor" format="reference"/>
+        <attr name="sunnyTextColorWhite" format="color"/>
+    </declare-styleable>
 </resources>

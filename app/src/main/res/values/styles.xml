@@ -1,17 +1,28 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <!-- 白天模式的主题 -->
+    <style name="AppTheme.DayTimePattern" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="textColorBlackAndWhite">@android:color/black</item>
+        <item name="windowBackGroundDayAndNight">@android:color/white</item>
+    </style>
+
+    <!-- 黑夜模式的主题-->
+    <style name="AppTheme.NightTimePattern" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">?android:attr/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="textColorBlackAndWhite">@android:color/white</item>
+        <item name="windowBackGroundDayAndNight">@android:color/black</item>
+
     </style>
 
     <style name="detail_title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/textColorBlackAndWhite</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:padding">10dp</item>
@@ -21,7 +32,7 @@
     <style name="detail_description">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/textColorBlackAndWhite</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
