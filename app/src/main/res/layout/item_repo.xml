@@ -7,69 +7,74 @@
     android:background="?android:attr/selectableItemBackground"
     android:transitionName="userHead">
 
-    <cn.carbs.android.avatarimageview.library.AppCompatAvatarImageView
-        android:id="@+id/avatarView"
-        style="@style/list_item_avatar"
-        app:srcCompat="@drawable/ic_github"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/avatarView"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:background="?attr/colorPrimary">
 
-        <RelativeLayout
-            android:id="@+id/repoInfoContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/repoNameView"
-                style="@style/list_item_title"
-                tools:text="Foo"/>
-
-            <TextView
-                android:id="@+id/descriptionView"
-                style="@style/list_item_subtitle"
-                android:layout_below="@id/repoNameView"
-                tools:text="This is a repo."/>
-
-        </RelativeLayout>
+        <cn.carbs.android.avatarimageview.library.AppCompatAvatarImageView
+            android:id="@+id/avatarView"
+            style="@style/list_item_avatar"
+            app:srcCompat="@drawable/ic_github" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_toRightOf="@id/avatarView"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <ImageView
-                style="@style/repo_tag_icon"
-                app:srcCompat="@drawable/ic_round"/>
+            <RelativeLayout
+                android:id="@+id/repoInfoContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/langView"
-                style="@style/list_item_subtitle"
-                tools:text="Kotlin"/>
+                <TextView
+                    android:id="@+id/repoNameView"
+                    style="@style/list_item_title"
+                    tools:text="Foo" />
 
-            <ImageView
-                style="@style/repo_tag_icon"
-                app:srcCompat="@drawable/ic_star"/>
+                <TextView
+                    android:id="@+id/descriptionView"
+                    style="@style/list_item_subtitle"
+                    android:layout_below="@id/repoNameView"
+                    tools:text="This is a repo." />
 
-            <TextView
-                android:id="@+id/starView"
-                style="@style/list_item_subtitle"
-                tools:text="1.7k"/>
+            </RelativeLayout>
 
-            <ImageView
-                style="@style/repo_tag_icon"
-                app:srcCompat="@drawable/ic_fork"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/forkView"
-                style="@style/list_item_subtitle"
-                tools:text="235"/>
+                <ImageView
+                    style="@style/repo_tag_icon"
+                    app:srcCompat="@drawable/ic_round" />
+
+                <TextView
+                    android:id="@+id/langView"
+                    style="@style/list_item_subtitle"
+                    tools:text="Kotlin" />
+
+                <ImageView
+                    style="@style/repo_tag_icon"
+                    app:srcCompat="@drawable/ic_star" />
+
+                <TextView
+                    android:id="@+id/starView"
+                    style="@style/list_item_subtitle"
+                    tools:text="1.7k" />
+
+                <ImageView
+                    style="@style/repo_tag_icon"
+                    app:srcCompat="@drawable/ic_fork" />
+
+                <TextView
+                    android:id="@+id/forkView"
+                    style="@style/list_item_subtitle"
+                    tools:text="235" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
+    </RelativeLayout>
 </RelativeLayout>

@@ -17,6 +17,7 @@
     <attr name="sideBarBackground" format="reference"/>
     <attr name="textColorBlackAndWhite" format="color"/>
     <attr name="windowBackGroundDayAndNight" format="color"/>
+    <attr name="listItemBackGroundDayAndNight" format="color"/>
 
     <declare-styleable name="SunnyAttr">
         <attr name="sunnyTextColor" format="reference"/>

@@ -3,22 +3,29 @@
     <!-- 白天模式的主题 -->
     <style name="AppTheme.DayTimePattern" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="textColorBlackAndWhite">@android:color/black</item>
         <item name="windowBackGroundDayAndNight">@android:color/white</item>
+        <item name="listItemBackGroundDayAndNight">@android:color/white</item>
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+
     </style>
 
     <!-- 黑夜模式的主题-->
     <style name="AppTheme.NightTimePattern" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="textColorBlackAndWhite">@android:color/white</item>
         <item name="windowBackGroundDayAndNight">@android:color/black</item>
+        <item name="listItemBackGroundDayAndNight">@android:color/black</item>
+
+        <item name="android:windowBackground">@color/windowBackgroundInverse</item>
+
 
     </style>
 
+    <!-- 自定义的风格-->
     <style name="detail_title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
@@ -52,7 +59,7 @@
     <style name="list_item_subtitle">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/textColorBlackAndWhite</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_margin">3dp</item>
@@ -62,7 +69,7 @@
     <style name="list_item_title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">?attr/textColorBlackAndWhite</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_margin">3dp</item>
