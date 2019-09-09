@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import com.tengfei.common.ext.no
 import com.tengfei.common.ext.otherWise
 import com.tengfei.common.ext.yes
@@ -12,6 +13,7 @@ import com.tengfei.github.R
 import com.tengfei.github.entity.User
 import com.tengfei.github.model.account.AccountManager
 import com.tengfei.github.model.account.OnAccountStateChangeListener
+import com.tengfei.github.settings.Themer
 import com.tengfei.github.utils.afterClosed
 import com.tengfei.github.utils.doOnLayoutAvailable
 import com.tengfei.github.utils.loadWithGlide
@@ -22,13 +24,14 @@ import com.tengfei.github.view.widget.NavigationController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.toggle_day_night.view.*
 import org.jetbrains.anko.imageResource
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
 
-    private val navigationController by lazy{
-        NavigationController(navigationView,::onNavItemChanged)
+    private val navigationController by lazy {
+        NavigationController(navigationView, ::onNavItemChanged)
     }
 
     val actionBarController by lazy {
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Themer.applyTheme(this)
         setContentView(R.layout.activity_main)
         setSupportActionBar(appBarMainToolbar)
         val toggle = ActionBarDrawerToggle(this, mainDrawerLayout, appBarMainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -97,11 +101,26 @@ class MainActivity : AppCompatActivity(), OnAccountStateChangeListener {
         }
     }
 
-    private fun onNavItemChanged(navViewItem: NavViewItem){
+    private fun onNavItemChanged(navViewItem: NavViewItem) {
         mainDrawerLayout.afterClosed {
             showFragment(R.id.fragmentContainer, navViewItem.fragmentClass)
             title = navViewItem.title
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_day_night, menu)
+        menu!!.findItem(R.id.actionItemDayNight).actionView.dayNightSwitch.apply {
+            isChecked = Themer.currentTheme() == Themer.ThemeModel.NIGHT
+
+            setOnCheckedChangeListener { buttonView, isChecked ->
+                Themer.toggleTheme(this@MainActivity)
+            }
+
+
+
+        }
+        return true
     }
 
 

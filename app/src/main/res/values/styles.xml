@@ -8,7 +8,7 @@
         <item name="windowBackGroundDayAndNight">@android:color/white</item>
         <item name="listItemBackGroundDayAndNight">@android:color/white</item>
 
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/white</item>
 
     </style>
 
