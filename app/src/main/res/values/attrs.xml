@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="DetailItemView">
+    <declare-styleable name="DetailItem">
         <attr name="item_title" format="string" />
         <attr name="item_content" format="string" />
         <attr name="item_icon" format="reference" />
